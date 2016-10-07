@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Josh Arts">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    
+    <!-- jQuery -->
+    <script   src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+   
+    <title>Rocket League Stats</title>
+    
+</head>
+
+<script>   
+    
+$(document).ready(function(){
+    $('#lb_goals').on("click", function() {
+        $('#assists_pane').css('display', 'none');
+        $('#goals_pane').css('display', 'block');
+        $('#saves_pane').css('display', 'none');
+        $('#shots_pane').css('display', 'none');
+    });
+    
+    $('#lb_assists').on("click", function() {
+        $('#assists_pane').css('display', 'block');
+        $('#goals_pane').css('display', 'none');
+        $('#saves_pane').css('display', 'none');
+        $('#shots_pane').css('display', 'none');
+    });
+    
+    $('#lb_saves').on("click", function() {
+        $('#assists_pane').css('display', 'none');
+        $('#goals_pane').css('display', 'none');
+        $('#saves_pane').css('display', 'block');
+        $('#shots_pane').css('display', 'none');
+    });
+        
+    $('#lb_shots').on("click", function() {
+        $('#assists_pane').css('display', 'none');
+        $('#goals_pane').css('display', 'none');
+        $('#saves_pane').css('display', 'none');
+        $('#shots_pane').css('display', 'block');
+    });
+});
+    
+</script>
+
+<body>
+   
+    <nav id="nav">
+        <ul>
+            <li><a href="./">HOME</a></li>
+            <li><a href="/teams">TEAMS</a></li>
+            <li><a href="/players" >PLAYERS</a></li>
+            <li><a href="#section3" >MATCHES</a></li>
+            <li><a href="#section4" >NEWS</a></li>
+            <li class = "right"><a href="#section4" >LINK?</a></li>
+            <li class = "left"><a href="#section4" >LOGO</a></li>
+        </ul>
+    </nav>
+    
+    <header>
+       <br><br>
+        <h1 class = "white shadow">ROCKET LEAGUE</h1>
+        <h3 class = "white shadow">ADVANCED TOURNAMENT STATISTICS</h3>
+        <hr>
+        <p class = "white twenty-two">See advanced statistics from your favorite teams, players,<br>and tournaments from around the world.</p>
+    </header>
+    
+    <div class = "container rounded bot-buffer">
+        <div class = "row top-buffer bot-buffer">
+            <div class = "col-md-7">
+    
+                <div class = "game left top-buffer">
+                    <h2 class = "white shadow">RLCS STAT LEADERS:</h2>
+                    <div class = "lb_widget">
+                    
+        <div id = "goal_pane" class = "info_pane rounded">
+            <h4 class = "center shadow white">LEADERBOARD: GOALS</h4>
+
+            <table id = "lb_table" class = "white">
+                <tr>
+                    <th>PLAYER</th>
+                    <th>GOALS</th>
+                    <th>TEAM</th>
+                    <th>GAMES PLAYED</th>
+                </tr>
+                <% @top_goals.each do |p| %>
+                <tr>
+                    <td><%= p.name %></td>
+                    <td><%= p.player_stats.sum(:goals) %></td>
+                    <td><%= Team.find(p.team_id).name %></td>
+                    <td><%= p.player_stats.length %></td>
+                </tr>
+                <% end %>
+            </table>
+
+        </div>
+        
+        <div id = "assists_pane" class = "info_pane rounded">
+            <h4 class = "center shadow white">LEADERBOARD: ASSISTS</h4>
+
+            <table id = "lb_table" class = "white">
+                <tr>
+                    <th>PLAYER</th>
+                    <th>ASSISTS</th>
+                    <th>TEAM</th>
+                    <th>GAMES PLAYED</th>
+                </tr>
+                <% @top_assists.each do |p| %>
+                <tr>
+                    <td><%= p.name %></td>
+                    <td><%= p.player_stats.sum(:assists) %></td>
+                    <td><%= Team.find(p.team_id).name %></td>
+                    <td><%= p.player_stats.length %></td>
+                </tr>
+                <% end %>
+            </table>
+
+        </div>
+        
+        <div id = "saves_pane" class = "info_pane rounded">
+            <h4 class = "center shadow white">LEADERBOARD: SAVES</h4>
+
+            <table id = "lb_table" class = "white">
+                <tr>
+                    <th>PLAYER</th>
+                    <th>SAVES</th>
+                    <th>TEAM</th>
+                    <th>GAMES PLAYED</th>
+                </tr>
+                <% @top_saves.each do |p| %>
+                <tr>
+                    <td><%= p.name %></td>
+                    <td><%= p.player_stats.sum(:saves) %></td>
+                    <td><%= Team.find(p.team_id).name %></td>
+                    <td><%= p.player_stats.length %></td>
+                </tr>
+                <% end %>
+            </table>
+
+        </div>
+        
+        <div id = "shots_pane" class = "info_pane rounded">
+            <h4 class = "center shadow white">LEADERBOARD: SHOTS</h4>
+
+            <table id = "lb_table" class = "white">
+                <tr>
+                    <th>PLAYER</th>
+                    <th>SHOTS</th>
+                    <th>TEAM</th>
+                    <th>GAMES PLAYED</th>
+                </tr>
+                <% @top_shots.each do |p| %>
+                <tr>
+                    <td><%= p.name %></td>
+                    <td><%= p.player_stats.sum(:shots) %></td>
+                    <td><%= Team.find(p.team_id).name %></td>
+                    <td><%= p.player_stats.length %></td>
+                </tr>
+                <% end %>
+            </table>
+
+        </div>
+        
+        <div class = "buttons">
+            <div class="white right center button" id = "lb_shots">SHOTS</div>
+            <div class="white right center button" id = "lb_saves">SAVES</div>
+            <div class="white right center button" id = "lb_assists">ASSISTS</div>
+            <div class="white right center button" id = "lb_goals">GOALS</div>
+        </div>
+    </div>
+        
+                </div>
+            </div>
+    
+            <div class = "col-md-5">
+                <br><br>
+                <h3 class = "white shadow">STATS LIKE NEVER BEFORE</h3>
+                <p class = "white eightteen">Rocket League Tournament Statistics tracks stats on tournaments worldwide, primarily focusing on the RLCS. We keep track of basic stats like goals, assists, saves, shots, and points across all league play, playoff and finals matches. We also keep track of stats that the game doesn't, like first bloods and overtime goals so you can see where certain players shine. </p>
+            </div>
+    
+        </div>
+    
+        <div class = "row top-buffer bot-buffer">
+    
+            <div class = "col-md-5">
+                <br><br>
+                <h3 class = "white shadow">WHAT SETS TOP TEAMS APART?</h3>
+                <p class = "white eightteen">Rocket League Tournament Statistics tracks stats on many tournaments worldwide, primarily focusing on the RLCS. We keep track of basic stats like goals, assists, saves, shots, and points across all league play, playoff and final matches. We also keep track of stats the the game doesn't, like first bloods and overtime goals so you can see where certain players shine. </p>
+            </div>
+
+            <div class = "col-md-7">
+                <div class = "game right">
+                    <h2 class = "white shadow">RLCS RANKINGS:</h2>
+                    <div class = "game-widget rounded">
+                        <div class = "info_pane rounded">
+
+                            <div class = "left orange center" id = "team1">
+                                <img class = "left team-icon" src="Images/kou.png">
+                                <h4 class = "shadow orange">KINGS OF URBAN</h4>
+                                <h1 class = "shadow center" id = "goals">3</h1>
+                                <table>
+                                  <tr>
+                                    <th>Player</th>
+                                    <th>G</th>
+                                    <th>A</th>
+                                    <th>Sa</th>
+                                    <th>Sh</th>
+                                  </tr>
+                                  <tr>
+                                    <td>name</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                  </tr>
+                                  <tr>
+                                    <td>name</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                  </tr>
+                                  <tr>
+                                    <td>name</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                  </tr>
+                                </table>
+
+                            </div>
+
+                            <div class = "right blue" id = "team2">
+                               <img class = "right team-icon" src="Images/kou.png">
+                                <h4 class = "shadow blue center">KINGS OF URBAN</h4>
+                                <h1 class = "shadow center" id = "goals">3</h1>
+                                <table>
+                                  <tr>
+                                    <th>Player</th>
+                                    <th>G</th>
+                                    <th>A</th>
+                                    <th>Sa</th>
+                                    <th>Sh</th>
+                                  </tr>
+                                  <tr>
+                                    <td>name</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                  </tr>
+                                  <tr>
+                                    <td>name</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                  </tr>
+                                  <tr>
+                                    <td>name</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                  </tr>
+                                </table>
+
+                            </div>
+                        </div>
+
+                        <div class = "buttons">
+                            <div class="white right center button">GOAL INFO</div>
+                            <div class="white right center button">TEAM STATS</div>
+                            <div class="white right center button">PLAYER STATS</div>
+                            <div class="white right center button">OVERVIEW</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class = "row top-buffer bot-buffer">
+            <div class = "col-md-7">
+
+                <div class = "game left">
+                    <h2 class = "white shadow">RANDOM GAME:</h2>
+                    <div class = "game-widget rounded">
+                        <div class = "info_pane rounded">
+
+                            <div class = "left orange center" id = "team1">
+                                <img class = "left team-icon" src= <%= "Images/" + Team.find(@featured_match.orange_team_id).icon %>>
+                                <h4 class = "shadow orange"><%= Team.find(@featured_match.orange_team_id).name.upcase %></h4>
+                                <h1 class = "shadow center" id = "goals"><%= Game.find(@featured_match.id).orange_score %></h1>
+                                <table>
+                                  <tr>
+                                    <th>Player</th>
+                                    <th>G</th>
+                                    <th>A</th>
+                                    <th>Sa</th>
+                                    <th>Sh</th>
+                                  </tr>
+                                    <% PlayerStat.where(game_id: Game.find(@featured_match.id).id).where(team_id: @featured_match.orange_team_id).each do |ps| %>
+                                        <tr>
+                                            <td><%= Player.find(ps.player_id).name %></td>
+                                            <td><%= ps.goals %></td>
+                                            <td><%= ps.assists %></td>
+                                            <td><%= ps.saves %></td>
+                                            <td><%= ps.shots %></td>
+                                        </tr>
+                                    <% end %>
+                                </table>
+
+                            </div>
+
+                            <div class = "right blue" id = "team2">
+                               <img class = "right team-icon" src= <%= "Images/" + Team.find(@featured_match.blue_team_id).icon %>>
+                                <h4 class = "shadow blue center"><%= Team.find(@featured_match.blue_team_id).name.upcase %></h4>
+                                <h1 class = "shadow center" id = "goals"><%= Game.find(@featured_match.id).blue_score %></h1>
+                                <table>
+                                  <tr>
+                                    <th>Player</th>
+                                    <th>G</th>
+                                    <th>A</th>
+                                    <th>Sa</th>
+                                    <th>Sh</th>
+                                  </tr>
+                                    <% PlayerStat.where(game_id: Game.find(@featured_match.id).id).where(team_id: @featured_match.blue_team_id).each do |ps| %>
+                                        <tr>
+                                            <td><%= Player.find(ps.player_id).name %></td>
+                                            <td><%= ps.goals %></td>
+                                            <td><%= ps.assists %></td>
+                                            <td><%= ps.saves %></td>
+                                            <td><%= ps.shots %></td>
+                                        </tr>
+                                    <% end %>
+                                </table>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class = "col-md-5">
+                <br><br>
+                <h3 class = "white shadow">RAW DATA ON EVERY GAME</h3>
+                <p class = "white eightteen">Not only does Rocket League Tournament Statistics let you track data across the whole tournament, but it also lets you see data on indivdual best of fives serieses.</p>
+            </div>
+
+        </div>
+    </div>
+    
+    <footer>
+        <p class = "white center eightteen">made with <i class="fa fa-heart red"></i> by josh arts | Rocket League is property of Psyonix, Inc.</p>
+    </footer>
+</body>
+
+</html>

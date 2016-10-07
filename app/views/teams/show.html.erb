@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Josh Arts">
+
+    <title>Rocket League Stats</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    
+</head>
+
+<body>
+   
+   <nav id="nav">
+        <ul>
+            <li><a href="./">HOME</a></li>
+            <li><a href="/teams">TEAMS</a></li>
+            <li><a href="/players" >PLAYERS</a></li>
+            <li><a href="#section3" >MATCHES</a></li>
+            <li><a href="#section4" >NEWS</a></li>
+            <li class = "right"><a href="#section4" >LINK?</a></li>
+            <li class = "left"><a href="#section4" >LOGO</a></li>
+        </ul>
+    </nav>
+    
+    <h1 class = "white shadow center" style = "margin-top: 80px; font-size: 50px;"><%= @team.name.upcase %></h1>
+    <div class = "container rounded bot-buffer">
+        <div class = "row">
+            <div class = "col-md-3">
+                <img class = "top-buffer-medium" src = <%= image_path(@team.icon) %> style = "height: 100%; width: 100%;">
+            </div>
+            <div class = "col-md-9">
+                <div class = "player-table">
+       
+                    <table class = "white rounded top-buffer">
+                        <tr>
+                            <th>Player</th>
+                            <th>Goals</th>
+                            <th>Assists</th>
+                            <th>Saves</th>
+                            <th>Shots</th>
+                            <th>Points</th>
+                            <th>GW Goals</th>
+                            <th>First Goals</th>
+                        </tr>
+                        <% @team.players.each do |p| %>
+                        <tr>
+                            <td class = "eightteen"><a href= <%= "/players/" + p.identifier %>> <%= p.name %></a></td>
+                            <td class = "twenty-two"><%= p.player_stats.sum(:goals) %></td>
+                            <td class = "twenty-two"><%= p.player_stats.sum(:assists) %></td>
+                            <td class = "twenty-two"><%= p.player_stats.sum(:saves) %></td>
+                            <td class = "twenty-two"><%= p.player_stats.sum(:shots) %></td>
+                            <td class = "twenty-two"><%= p.player_stats.sum(:points) %></td>
+                            <td class = "twenty-two"><%= p.player_stats.sum(:gwg) %></td>
+                            <td class = "twenty-two"><%= p.player_stats.sum(:fb) %></td>
+                        </tr>
+                        <% end %>
+                    </table>
+                    <p class = "white">* Stats across all league play, playoffs and finals season two RLCS games.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class = "row top-buffer">
+            <div class = "col-md-7">
+               <h2 class = "white shadow">LAST SERIES</h2>
+                <div class = "game-widget rounded">
+                    <div class = "info_pane rounded">
+
+                        <div class = "left orange center" id = "team1">
+                            <img class = "left team-icon" src="Images/kou.png">
+                            <h4 class = "shadow orange">KINGS OF URBAN</h4>
+                            <h1 class = "shadow center" id = "goals">3</h1>
+                            <table>
+                                <tr>
+                                    <th>Player</th>
+                                    <th>G</th>
+                                    <th>A</th>
+                                    <th>Sa</th>
+                                    <th>Sh</th>
+                                </tr>
+                                <tr>
+                                    <td>name</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>name</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>name</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                </tr>
+                            </table>
+
+                        </div>
+
+                        <div class = "right blue" id = "team2">
+                            <img class = "right team-icon" src="Images/kou.png">
+                            <h4 class = "shadow blue center">KINGS OF URBAN</h4>
+                            <h1 class = "shadow center" id = "goals">3</h1>
+                            <table>
+                                <tr>
+                                    <th>Player</th>
+                                    <th>G</th>
+                                    <th>A</th>
+                                    <th>Sa</th>
+                                    <th>Sh</th>
+                                </tr>
+                                <tr>
+                                    <td>name</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>name</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>name</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                </tr>
+                            </table>
+
+                         </div>
+                    </div>
+            
+                    <div class = "buttons">
+                        <div class="white right center button">GOAL INFO</div>
+                        <div class="white right center button">TEAM STATS</div>
+                        <div class="white right center button">PLAYER STATS</div>
+                        <div class="white right center button">OVERVIEW</div>
+                     </div>
+                </div>
+            </div>
+            <div class = "col-md-5">
+                <h2 class = "white shadow">LAST FIVE</h2>
+                <div class = "player-table">
+       
+                    <table class = "white rounded">
+                        <tr>
+                            <th>Result</th>
+                            <th>Score (W : L)</th>
+                            <th>Opponents</th>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">WIN</td>
+                            <td class = "twenty-two">3 : 2</td>
+                            <td class = "eighteen">Genesis</td>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">LOSS</td>
+                            <td class = "twenty-two">1 : 3</td>
+                            <td class = "eighteen">G2 eSports</td>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">WIN</td>
+                            <td class = "twenty-two">3 : 2</td>
+                            <td class = "eighteen">Genesis</td>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">LOSS</td>
+                            <td class = "twenty-two">1 : 3</td>
+                            <td class = "eighteen">G2 eSports</td>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">WIN</td>
+                            <td class = "twenty-two">3 : 2</td>
+                            <td class = "eighteen">Genesis</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class = "row">
+            <h2 class = "white shadow center top-buffer">TEAM STATS</h2>
+            <div class = "col-md-12">
+                <div class = "player-table bot-buffer">
+       
+                    <table class = "white rounded">
+                        <tr>
+                            <th>Stat</th>
+                            <th>Equation</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">AVERAGE SHOTS FOR PER GAME</td>
+                            <td class = "eightteen">shots for / games played</td>
+                            <td class = "eighteen">82.4%</td>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">AVERAGE GOALS PER GAME</td>
+                            <td class = "eightteen">goals / games played</td>
+                            <td class = "eighteen">82.4%</td>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">AVERAGE SAVES PER GAME</td>
+                            <td class = "eightteen">saves / games played</td>
+                            <td class = "eighteen">82.4%</td>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">AVERAGE ASSISTS PER GAME</td>
+                            <td class = "eightteen">assists / games played</td>
+                            <td class = "eighteen">82.4%</td>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">GAME WIN PERCENTAGE</td>
+                            <td class = "eightteen">game wins / games played</td>
+                            <td class = "eighteen">82.4%</td>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">SHOOTING PERCENTAGE</td>
+                            <td class = "eightteen">goals / shots for</td>
+                            <td class = "eighteen">82.4%</td>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">SAVE PERCENTAGE</td>
+                            <td class = "eightteen">saves / shots against</td>
+                            <td class = "eighteen">82.4%</td>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">SHOTS DIFFERENTIAL</td>
+                            <td class = "eightteen">shots for - shots against</td>
+                            <td class = "eighteen">82.4%</td>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">GOAL DIFFERENTIAL</td>
+                            <td class = "eightteen">goals for - goals agaisnt</td>
+                            <td class = "eighteen">82.4%</td>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">OT WIN PERCENTAGE</td>
+                            <td class = "eightteen">OT wins / OT games</td>
+                            <td class = "eighteen">82.4%</td>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">FIRST BLOOD PERCENTAGE</td>
+                            <td class = "eightteen">first bloods / games played</td>
+                            <td class = "eighteen">82.4%</td>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">PERCENTAGE OUTSHOT</td>
+                            <td class = "eightteen">games outshot / games played</td>
+                            <td class = "eighteen">82.4%</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p class = "white center eightteen">made with <i class="fa fa-heart red"></i> by josh arts | Rocket League is property of Psyonix, Inc.</p>
+    </footer>
+
+</body>
+
+</html>

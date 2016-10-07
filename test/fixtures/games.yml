@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  match_id: MyString
+  map: MyString
+  blue_score: 1
+  orange_score: 1
+
+two:
+  name: MyString
+  match_id: MyString
+  map: MyString
+  blue_score: 1
+  orange_score: 1

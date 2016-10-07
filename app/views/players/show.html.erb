@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Josh Arts">
+
+    <title>Rocket League Stats</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    
+</head>
+
+<body>
+   
+   <nav id="nav">
+        <ul>
+            <li><a href="./">HOME</a></li>
+            <li><a href="/teams">TEAMS</a></li>
+            <li><a href="/players" >PLAYERS</a></li>
+            <li><a href="#section3" >MATCHES</a></li>
+            <li><a href="#section4" >NEWS</a></li>
+            <li class = "right"><a href="#section4" >LINK?</a></li>
+            <li class = "left"><a href="#section4" >LOGO</a></li>
+        </ul>
+    </nav>
+    
+    <h1 class = "white shadow center" style = "margin-top: 80px; font-size: 50px;"><%= @player.name.upcase %></h1>
+    <div class = "container rounded bot-buffer">
+        <div class = "row">
+            <div class = "col-md-3">
+                <img class = "top-buffer-medium" src = <%= image_path(Team.find(@player.team_id).icon) %> style = "height: 100%; width: 100%;">
+            </div>
+            <div class = "col-md-3">
+                <table>
+                    <tr>
+                        <h4 class = "white top-buffer-large shadow"><%= @player.first_name.upcase %></h4>
+                        <h1 class = "white shadow"><%= @player.last_name.upcase %></h1>
+                        <h2 class = "white shadow top-buffer-large"><%= @player.region %></h2>
+                        <h2 class = "white shadow"><%= Team.find(@player.team_id).name.upcase %></h2>
+                    </tr>
+                </table>
+            </div>
+            <div class = "col-md-6">
+                <p class = "white twenty top-buffer-large">Fireburner is one-third of the dynamic trio that is NRG eSports. With a disapointing finish at the Season 1 LAN finals playing with Kings of Urban, he is back in action with the newly accquired NRG squad. </p>
+            </div>
+        </div>
+        
+        <div class = "row">
+            <div class = "col-md-12">
+               <h2 class = "white shadow">PLAYER STATS</h2>
+               <div class = "player-table">
+       
+                    <table class = "white rounded top-buffer">
+                        <tr>
+                            <th>Stage</th>
+                            <th>G / G</th>
+                            <th>A / G</th>
+                            <th>Sa / G</th>
+                            <th>Sh / G</th>
+                            <th>Pts / G</th>
+                            <th>Shooting %</th>
+                            <th>Save %</th>
+                            <th>GP</th>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">League Play</td>
+                            <td class = "twenty-two"><%= (@player.player_stats.sum(:goals).to_f / @player.player_stats.length.to_f) %></td>
+                            <td class = "twenty-two"><%= (@player.player_stats.sum(:assists).to_f / @player.player_stats.length.to_f) %></td>
+                            <td class = "twenty-two"><%= (@player.player_stats.sum(:saves).to_f / @player.player_stats.length.to_f) %></td>
+                            <td class = "twenty-two"><%= (@player.player_stats.sum(:shots).to_f / @player.player_stats.length.to_f) %></td>
+                            <td class = "twenty-two"><%= (@player.player_stats.sum(:points).to_f / @player.player_stats.length.to_f) %></td>
+                            <td class = "twenty-two"><%= (@player.player_stats.sum(:goals).to_f / @player.player_stats.sum(:shots).to_f).round(3) * 100 %></td>
+                            <td class = "twenty-two">50.8</td>
+                            <td class = "twenty-two"><%= @player.player_stats.length %></td>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">Playoffs</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">LAN Finals</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">Full Season</td>
+                            <td class = "twenty-two">3.92</td>
+                            <td class = "twenty-two">4.12</td>
+                            <td class = "twenty-two">1.34</td>
+                            <td class = "twenty-two">1.23</td>
+                            <td class = "twenty-two">195</td>
+                            <td class = "twenty-two">36.8</td>
+                            <td class = "twenty-two">50.8</td>
+                            <td class = "twenty-two">10</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-md-12">
+
+               <div class = "player-table bot-buffer">
+       
+                    <table class = "white rounded top-buffer">
+                        <tr>
+                            <th>Stage</th>
+                            <th>Goals</th>
+                            <th>Assists</th>
+                            <th>Saves</th>
+                            <th>Shots</th>
+                            <th>Points</th>
+                            <th>First Bloods</th>
+                            <th>GWG</th>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">League Play</td>
+                            <td class = "twenty-two"><%= @player.player_stats.sum(:goals) %></td>
+                            <td class = "twenty-two"><%= @player.player_stats.sum(:assists) %></td>
+                            <td class = "twenty-two"><%= @player.player_stats.sum(:saves) %></td>
+                            <td class = "twenty-two"><%= @player.player_stats.sum(:shots) %></td>
+                            <td class = "twenty-two"><%= @player.player_stats.sum(:points) %></td>
+                            <td class = "twenty-two"><%= @player.player_stats.sum(:fb) %></td>
+                            <td class = "twenty-two"><%= @player.player_stats.sum(:gwg) %></td>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">Playoffs</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">LAN Finals</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+
+                        </tr>
+                        <tr>
+                            <td class = "eightteen">Full Season</td>
+                            <td class = "twenty-two">3.92</td>
+                            <td class = "twenty-two">4.12</td>
+                            <td class = "twenty-two">1.34</td>
+                            <td class = "twenty-two">1.23</td>
+                            <td class = "twenty-two">195</td>
+                            <td class = "twenty-two">36.8</td>
+                            <td class = "twenty-two">50.8</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p class = "white center eightteen">made with <i class="fa fa-heart red"></i> by josh arts | Rocket League is property of Psyonix, Inc.</p>
+    </footer>
+
+</body>
+
+</html>

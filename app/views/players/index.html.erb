@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Josh Arts">
+
+    <title>Rocket League Stats</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    
+</head>
+
+<body>
+   
+   <nav id="nav">
+        <ul>
+            <li><a href="./">HOME</a></li>
+            <li><a href="/teams">TEAMS</a></li>
+            <li><a href="/players" >PLAYERS</a></li>
+            <li><a href="#section3" >MATCHES</a></li>
+            <li><a href="#section4" >NEWS</a></li>
+            <li class = "right"><a href="#section4" >LINK?</a></li>
+            <li class = "left"><a href="#section4" >LOGO</a></li>
+        </ul>
+    </nav>
+    
+    <div class = "container rounded">
+        <div class = "searchtable">
+            <div class = "searchbutton right center rounded white"><i class="fa fa-search sr-icons"></i></div>
+            <h1 class = "white shadow">PLAYER SEARCH:</h1>
+            <p class = "white">Click on a player to see more advanced stats.</p>
+
+            <table class = "white rounded bot-buffer">
+                <tr>
+                    <th>Team</th>
+                    <th>Player Name</th>
+                    <th>Region</th>
+                    <th>G / G</th>
+                    <th>A / G</th>
+                    <th>Sa / G</th>
+                    <th>Sh / G</th>
+                    <th>Pts / G</th>
+                    <th>Shooting %</th>
+                    <th>Save %</th>
+                    <th>GWG</th>
+                    <th>FB</th>
+                    <th>GP</th>
+                </tr>
+                
+                <% @player.each do |p| %>
+                <% # Might be better to not initialize? %>
+                    <% if p.player_stats.length != 0 %>
+                        <% goals = p.player_stats.sum(:goals) %>
+                        <% assists = p.player_stats.sum(:assists) %>
+                        <% saves = p.player_stats.sum(:saves) %>
+                        <% shots = p.player_stats.sum(:shots) %>
+                        <% points = p.player_stats.sum(:points) %>
+                        <% gwg = p.player_stats.sum(:gwg) %>
+                        <% fb = p.player_stats.sum(:fb) %>
+                        <% games_played = p.player_stats.length %>
+                        <tr>
+                            <td><img src = <%= "Images/" + Team.find(p.team_id).icon %> style = "height: 40px; width: 40px;"></td>
+                            <td class = "twenty"><a href= <%= "/players/" + p.identifier %>> <%= p.name %></a></td>
+                            <td class = "twenty-four"><%= p.region %></td>
+                            <td class = "twenty-two"><%= (goals.to_f / games_played.to_f).round(2) %></td>
+                            <td class = "twenty-two"><%= (assists.to_f / games_played.to_f).round(2) %></td>
+                            <td class = "twenty-two"><%= (saves.to_f / games_played.to_f).round(2) %></td>
+                            <td class = "twenty-two"><%= (shots.to_f / games_played.to_f).round(2) %></td>
+                            <td class = "twenty-two"><%= (points.to_f / games_played.to_f).round(2) %></td>
+                            <td class = "twenty-two"><%= ((goals.to_f / shots.to_f).round(3) * 100).round(3) %></td>
+                            <td class = "twenty-two">20.4</td>
+                            <td class = "twenty-two"><%= gwg %></td>
+                            <td class = "twenty-two"><%= fb %></td>
+                            <td class = "twenty-two"><%= games_played %></td>
+                        </tr>
+                    <% else %>
+                        <tr>
+                            <td><img src = <%= "Images/" + Team.find(p.team_id).icon %> style = "height: 40px; width: 40px;"></td>
+                            <td class = "twenty"><a href= <%= "/players/" + p.identifier %>> <%= p.name %></a></td>
+                            <td class = "twenty-four"><%= p.region %></td>
+                            <td class = "twenty-two">0.0</td>
+                            <td class = "twenty-two">0.0</td>
+                            <td class = "twenty-two">0.0</td>
+                            <td class = "twenty-two">0.0</td>
+                            <td class = "twenty-two">0.0</td>
+                            <td class = "twenty-two">0.0</td>
+                            <td class = "twenty-two">0.0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                            <td class = "twenty-two">0</td>
+                        </tr>
+                    <% end %>
+                <% end %>
+
+            </table>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Josh Arts">
+
+    <title>Rocket League Stats</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    
+</head>
+
+<body>
+   
+   <nav id="nav">
+        <ul>
+            <li><a href="./">HOME</a></li>
+            <li><a href="/teams">TEAMS</a></li>
+            <li><a href="/players" >PLAYERS</a></li>
+            <li><a href="#section3" >MATCHES</a></li>
+            <li><a href="#section4" >NEWS</a></li>
+            <li class = "right"><a href="#section4" >LINK?</a></li>
+            <li class = "left"><a href="#section4" >LOGO</a></li>
+        </ul>
+    </nav>
+    
+    <div class = "container rounded">
+        <div class = "searchtable">
+            <div class = "searchbutton right center rounded white"><i class="fa fa-search sr-icons"></i></div>
+            <h1 class = "white shadow">TEAM SEARCH:</h1>
+            <p class = "white">Click on a team to see more advanced stats.</p>
+            
+            <table class = "white rounded bot-buffer">
+                <tr>
+                    <th>Icon</th>
+                    <th>Team Name</th>
+                    <th>Region</th>
+                    <th>Match W:L</th>
+                    <th>Game W:L</th>
+                    <th>Shooting %</th>
+                    <th>Save %</th>
+                    <th>G / G</th>
+                    <th>A / G</th>
+                    <th>Sa / G</th>
+                    <th>Sh / G</th>
+                </tr>
+                
+                <% @team.each do |t| %>
+                <tr>
+                    <td><img src = <%= "Images/" + t.icon %> style = "height: 40px; width: 40px;"></td>
+                    <td class = "twenty"><a href= <%= "/teams/" + t.identifier %>> <%= t.name %></a></td>
+                    <td class = "twenty-four"><%= t.region %></td>
+                    <td class = "twenty">0 : 0</td>
+                    <td class = "twenty">0 : 0</td>
+                    <td class = "twenty-two">00.0</td>
+                    <td class = "twenty-two">00.0</td>
+                    <td class = "twenty-two">0.0</td>
+                    <td class = "twenty-two">0.0</td>
+                    <td class = "twenty-two">0.0</td>
+                    <td class = "twenty-two">0.0</td>
+                </tr>
+                <% end %>
+
+            </table>
+        </div>
+    </div>
+
+</body>
+
+</html>

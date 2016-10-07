@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  stage: MyString
+  blue_team_id: MyString
+  orange_team_id: MyString
+  blue_score: 
+  orange_score: 
+  winner: MyString
+
+two:
+  name: MyString
+  stage: MyString
+  blue_team_id: MyString
+  orange_team_id: MyString
+  blue_score: 
+  orange_score: 
+  winner: MyString
