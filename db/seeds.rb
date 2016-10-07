@@ -1,40 +1,40 @@
-# Team(id, name, region, icon) NOTE: Add wins/losses manually.
+# Team(id, name, region, icon, g_wins, m_wins)
 # Player(id, name, region, team_id, first_name, last_name)
 # Match(id, name, stage, blue_team_id, orange_team_id, winner)
 # Game(id, name, match_id, map, blue_score, orange_score)
 # PlayerStat(id, match_id, team_id, player_id, game_id, goals, assists, saves, shots, points, fb, gwg)
 
-NA_TEAMS = {nrg: Team.create(name: 'NRG eSports', region: "NA", icon: "nrg.png",                   identifier: "nrg-esports"),
+NA_TEAMS = {nrg: Team.create(name: 'NRG eSports', region: "NA", icon: "nrg.png",                   identifier: "nrg-esports", g_wins: 2, m_wins: 0),
     
-            exodus: Team.create(name: 'Exodus', region: "NA", icon: "exodus.png", identifier: "exodus"),
+            exodus: Team.create(name: 'Exodus', region: "NA", icon: "exodus.png", identifier: "exodus", g_wins: 3, m_wins: 1),
     
-            takethree: Team.create(name: 'Take 3', region: "NA", icon: "takethree.png", identifier: "take3"),
+            takethree: Team.create(name: 'Take 3', region: "NA", icon: "takethree.png", identifier: "take3", g_wins: 6, m_wins: 2),
     
-            revival: Team.create(name: 'Revival', region: "NA", icon: "revival.png", identifier: "revival"),
+            revival: Team.create(name: 'Revival', region: "NA", icon: "revival.png", identifier: "revival", g_wins: 4, m_wins: 1),
     
-            gtwo: Team.create(name: 'G2 eSports', region: "NA", icon: "g2.png", identifier: "g2-esports"),
+            gtwo: Team.create(name: 'G2 eSports', region: "NA", icon: "g2.png", identifier: "g2-esports", g_wins: 2, m_wins: 0),
     
-            genesis: Team.create(name: 'Genesis', region: "NA", icon: "genesis.png", identifier: "genesis"),
+            genesis: Team.create(name: 'Genesis', region: "NA", icon: "genesis.png", identifier: "genesis", g_wins: 6, m_wins: 2),
     
-            deception: Team.create(name: 'Deception', region: "NA", icon: "deception.png", identifier: "deception"),
+            deception: Team.create(name: 'Deception', region: "NA", icon: "deception.png", identifier: "deception", g_wins: 4, m_wins: 0),
     
-            vindicator: Team.create(name: 'Vindicator', region: "NA", icon: "vindicator.png", identifier: "vindicator")}
+            vindicator: Team.create(name: 'Vindicator', region: "NA", icon: "vindicator.png", identifier: "vindicator", g_wins: 4, m_wins: 1)}
 
-EU_TEAMS = {flipsid3: Team.create(name: 'FlipSid3 Tactics', region: "EU", icon:                   "flipside.png", identifier: "flipside3"),
+EU_TEAMS = {flipsid3: Team.create(name: 'FlipSid3 Tactics', region: "EU", icon:                   "flipside.png", identifier: "flipside3", g_wins: 0, m_wins: 0),
     
-            mockitaces: Team.create(name: 'Mockit Aces', region: "EU", icon: "mockitaces.png", identifier: "mockit-aces"),
+            mockitaces: Team.create(name: 'Mockit Aces', region: "EU", icon: "mockitaces.png", identifier: "mockit-aces", g_wins: 0, m_wins: 0),
     
-            northern: Team.create(name: 'Northern Gaming', region: "EU", icon: "northern.png", identifier: "northern"),
+            northern: Team.create(name: 'Northern Gaming', region: "EU", icon: "northern.png", identifier: "northern", g_wins: 0, m_wins: 0),
     
-            precisionz: Team.create(name: 'Precision Z', region: "EU", icon: "precisionz.png", identifier: "precisionz"),
+            precisionz: Team.create(name: 'Precision Z', region: "EU", icon: "precisionz.png", identifier: "precisionz", g_wins: 0, m_wins: 0),
     
-            summit: Team.create(name: 'Summit', region: "EU", icon: "summit.png", identifier: "summit"),
+            summit: Team.create(name: 'Summit', region: "EU", icon: "summit.png", identifier: "summit", g_wins: 0, m_wins: 0),
     
-            redeye: Team.create(name: 'Red Eye', region: "EU", icon: "redeye.png", identifier: "redeye"),
+            redeye: Team.create(name: 'Red Eye', region: "EU", icon: "redeye.png", identifier: "redeye", g_wins: 0, m_wins: 0),
     
-            ohmydog: Team.create(name: 'OhMyDog', region: "EU", icon: "ohmydog.png", identifier: "ohmydog"),
+            ohmydog: Team.create(name: 'OhMyDog', region: "EU", icon: "ohmydog.png", identifier: "ohmydog", g_wins: 0, m_wins: 0),
     
-            reunited: Team.create(name: 'Reunited', region: "EU", icon: "reunited.png", identifier: "reunited")}
+            reunited: Team.create(name: 'Reunited', region: "EU", icon: "reunited.png", identifier: "reunited", g_wins: 0, m_wins: 0)}
 
 NA_PLAYERS = {
         # NRG

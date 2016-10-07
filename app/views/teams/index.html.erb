@@ -54,19 +54,41 @@
                 </tr>
                 
                 <% @team.each do |t| %>
-                <tr>
-                    <td><img src = <%= "Images/" + t.icon %> style = "height: 40px; width: 40px;"></td>
-                    <td class = "twenty"><a href= <%= "/teams/" + t.identifier %>> <%= t.name %></a></td>
-                    <td class = "twenty-four"><%= t.region %></td>
-                    <td class = "twenty">0 : 0</td>
-                    <td class = "twenty">0 : 0</td>
-                    <td class = "twenty-two">00.0</td>
-                    <td class = "twenty-two">00.0</td>
-                    <td class = "twenty-two">0.0</td>
-                    <td class = "twenty-two">0.0</td>
-                    <td class = "twenty-two">0.0</td>
-                    <td class = "twenty-two">0.0</td>
-                </tr>
+                    <% if t.player_stats.length != 0 %>
+                        <% goals = t.player_stats.sum(:goals) %>
+                        <% assists = t.player_stats.sum(:assists) %>
+                        <% saves = t.player_stats.sum(:saves) %>
+                        <% shots = t.player_stats.sum(:shots) %>
+                        <% games_played = t.player_stats.length / 3 %>
+                        <tr>
+                            <td><img src = <%= "Images/" + t.icon %> style = "height: 40px; width: 40px;"></td>
+                            <td class = "twenty"><a href= <%= "/teams/" + t.identifier %>> <%= t.name %></a></td>
+                            <td class = "twenty-four"><%= t.region %></td>
+                            <% #Need to find a better way to do this... %>
+                            <td class = "twenty-two"><%= t.m_wins.to_s + " : " + ((Match.where(blue_team_id: t.id).length + Match.where(orange_team_id: t.id).length) - t.m_wins).to_s %></td>
+                            <td class = "twenty-two"><%= t.g_wins.to_s + " : " + (games_played - t.g_wins).to_s %></td>
+                            <td class = "twenty-two"><%= ((goals.to_f / shots.to_f).round(3) * 100).round(3) %></td>
+                            <td class = "twenty-two">00.0</td>
+                            <td class = "twenty-two"><%= (goals.to_f / games_played.to_f).round(2) %></td>
+                            <td class = "twenty-two"><%= (assists.to_f / games_played.to_f).round(2) %></td>
+                            <td class = "twenty-two"><%= (saves.to_f / games_played.to_f).round(2) %></td>
+                            <td class = "twenty-two"><%= (shots.to_f / games_played.to_f).round(2) %></td>
+                        </tr>
+                    <% else %>
+                        <tr>
+                            <td><img src = <%= "Images/" + t.icon %> style = "height: 40px; width: 40px;"></td>
+                            <td class = "twenty"><a href= <%= "/teams/" + t.identifier %>> <%= t.name %></a></td>
+                            <td class = "twenty-four"><%= t.region %></td>
+                            <td class = "twenty-two">0 : 0</td>
+                            <td class = "twenty-two">0 : 0</td>
+                            <td class = "twenty-two">00.0</td>
+                            <td class = "twenty-two">00.0</td>
+                            <td class = "twenty-two">0.0</td>
+                            <td class = "twenty-two">0.0</td>
+                            <td class = "twenty-two">0.0</td>
+                            <td class = "twenty-two">0.0</td>
+                        </tr>
+                    <% end %>
                 <% end %>
 
             </table>
