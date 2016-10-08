@@ -20,24 +20,71 @@
 
 <script>   
     
+function getAllUrlParams(url) {
+    
+  var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
+  var obj = {};
+
+  if (queryString) {
+    queryString = queryString.split('#')[0];
+    var arr = queryString.split('&');
+      
+    for (var i=0; i<arr.length; i++) {
+      var a = arr[i].split('=');
+      var paramNum = undefined;
+      var paramName = a[0].replace(/\[\d*\]/, function(v) {
+        paramNum = v.slice(1,-1);
+        return '';
+      });
+
+      var paramValue = typeof(a[1])==='undefined' ? true : a[1];
+      if (obj[paramName]) {
+        if (typeof obj[paramName] === 'string') {
+          obj[paramName] = [obj[paramName]];
+        }
+        if (typeof paramNum === 'undefined') {
+          obj[paramName].push(paramValue);
+        }
+        else {
+          obj[paramName][paramNum] = paramValue;
+        }
+      }
+      else {
+        obj[paramName] = paramValue;
+      }
+    }
+  }
+
+  return obj;
+}
+    
 $(document).ready(function(){
     
     var region = document.getElementById("region_select");
     var stat = document.getElementById("stat_select");
     var stage = document.getElementById("stage_select");
     
-    indexToStatQuery = ["goals", "assists", "saves", "shots", "points"]
+    // Get parameters.
+    params = getAllUrlParams(window.location.href);
+    
+    // For conversion to option index.
+    region_values = ["NA", "EU"];
+    stat_values = ["goals", "assists", "saves", "shots"]
+    
+    // Set the dropdowns to appropriate search params.
+    region.selectedIndex = (params.region) ? region_values.indexOf(params.region) + 1 : 0;
+    stat.selectedIndex = (params.sortby) ? stat_values.indexOf(params.sortby) + 1 : 0;
     
     $('#search').on("click", function() {
         var region_query = ""
         var stat_query = ""
         
         if(region.selectedIndex != 0){
-            region_query = "region=" + region.options[region.selectedIndex].text;
+            region_query = "region=" + region.options[region.selectedIndex].value;
         }
         
         if(stat.selectedIndex != 0){
-            stat_query = "sortby=" + indexToStatQuery[stat.selectedIndex - 1];
+            stat_query = "sortby=" + stat.options[stat.selectedIndex].value;
         }
         
         var url = "/players"
@@ -50,10 +97,8 @@ $(document).ready(function(){
                 url += list[i];
             }
         }
-        
-        console.log(url);
+
         window.location.href = url;
-        // SET DROPDOWN OPTIONS.
     });
     
 });
@@ -84,9 +129,9 @@ $(document).ready(function(){
                 <div class="form-group top-buffer-small">
                     <label for="exampleSelect1" class = "white twenty shadow">REGION</label>
                     <select class="form-control" id="region_select">
-                          <option>All</option>
-                          <option>NA</option>
-                          <option>EU</option>
+                          <option value = "none">All</option>
+                          <option value = "NA">NA</option>
+                          <option value = "EU">EU</option>
                     </select>
                 </div>
             </div>
@@ -94,11 +139,11 @@ $(document).ready(function(){
                 <div class="form-group top-buffer-small">
                     <label for="exampleSelect1" class = "white twenty shadow">SORT BY</label>
                     <select class="form-control" id="stat_select">
-                          <option>None</option>
-                          <option>Goals / Game</option>
-                          <option>Assists / Game</option>
-                          <option>Saves / Game</option>
-                          <option>Shots / Game</option>
+                          <option value = "none">None</option>
+                          <option value = "goals">Goals / Game</option>
+                          <option value = "assists">Assists / Game</option>
+                          <option value = "saves">Saves / Game</option>
+                          <option value = "shots">Shots / Game</option>
                           <option>Points / Game</option>
                           <option>Shooting %</option>
                           <option>Save %</option>

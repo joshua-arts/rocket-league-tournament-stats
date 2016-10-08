@@ -1,7 +1,5 @@
 class PlayersController < ApplicationController
     def index
-        # Sort by region.
-        # Make it so you can sort by region and stats.
         @player = Player.all
         
         if(params[:region])
@@ -10,6 +8,7 @@ class PlayersController < ApplicationController
         
         # Restrict to matches in certain stage.
         
+        # Case?
         if(params[:sortby] == "goals")
             @player = @player.by_gpg
         elsif(params[:sortby] == "assists")
