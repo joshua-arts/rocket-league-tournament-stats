@@ -97,6 +97,10 @@ header {
     text-align: center;
 }
 
+.top-buffer-small{
+    margin-top: 14px;
+}
+
 .top-buffer{
     margin-top: 25px;
 }
@@ -130,7 +134,7 @@ header {
 }
 
 .container{
-    background-color: rgba(50,50,50,0.7)
+    background-color: rgba(50,50,50,0.7);
 }
 
 /* GAME WIDGET */
@@ -179,6 +183,8 @@ header {
 }
 
 .buttons{
+    margin-top: 250px;
+    position: absolute;
     width: 580px;
     height: 35px;
     padding: 8px 20px;
@@ -206,10 +212,11 @@ header {
     background-color: dimgrey;
     border-radius: 15px;
     border: 0px solid #2F4F4F;
-    background: url(/Images/metal.jpg)
+    background: url(/Images/metal.jpg);
 }
 
 .info_pane {
+    position: absolute;
     width: 600px;
     height: 250px;
     padding: 20px;
@@ -251,17 +258,20 @@ header {
 /* SEARCH TABLE STYLES */
 
 .searchtable{
-    margin-top: 120px;
     margin-left: auto;
     margin-right: auto;
 }
 
 .searchbutton{
-    margin-top: 15px;
-	width:60px;
+    margin-left: 25px;
+	width:100px;
 	height:60px;
-	background-color: rgba(255,255,255,.5);;
+	background-color: rgba(255,255,255,.5);
   	line-height:60px;
+}
+
+.searchbutton:hover{
+   background-color: rgba(170,170,170,.5); 
 }
 
 .fa-search{
