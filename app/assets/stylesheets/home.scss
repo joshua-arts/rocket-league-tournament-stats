@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'header';
+  src: url("/assets/two.woff");
+}
+
 /* PAGE SETUP */
 
 html,
@@ -8,7 +13,7 @@ body {
     -moz-background-size: cover;    /* Mozilla*/
     -o-background-size: cover;      /* Opera*/
     background-size: cover;         /* Generic*/
-    font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'header','Merriweather';
 }
 
 /* NAV BAR */

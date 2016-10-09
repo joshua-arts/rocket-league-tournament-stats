@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Josh Arts">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    
+    <!-- jQuery -->
+    <script   src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    
+    <%= stylesheet_link_tag "front" %>
+    
+    <title>RLCS Stats</title>
+    
+</head>
+
+<body>
+   
+    <nav id="nav">
+        <ul>
+            <li><a href="./">HOME</a></li>
+            <li><a href="/about">ABOUT</a></li>
+            <li><a href="/teams">TEAMS</a></li>
+            <li><a href="/players" >PLAYERS</a></li>
+            <li><a href="#section3" >COMPARE</a></li>
+            <li><a href="#section4" >NEWS</a></li>
+            <li class = "right"><a href="#section4" >LINK?</a></li>
+            <li class = "left"><a href="#section4" >LOGO</a></li>
+        </ul>
+    </nav>
+    
+    <div class = "container-fluid">
+        <div class = "row top-buffer-large">
+           <div class = "col-md-2 top-buffer-small" style = "margin-left: 40px;">
+                <img src = "Images/rlcsicon.png" style = "width: 240px">
+            </div>
+            <div class = "col-md-6 top-buffer-large">
+                <h1 class = "white shadow" style = "font-size:  90px;">ROCKET LEAGUE</h1>
+                <p class = "white twenty-two shadow">SEE ADVANCED STATS FROM YOUR FAVOURITE TEAMS, PLAYERS <br> AND TOURNAMENTS FROM AROUND THE GLOBE.</p>
+            </div>
+        </div>
+        <div class = "row top-buffer">
+           <div class = "col-md-12">
+               <div class = "uploadbutton white twenty-two shadow center top-buffer">ANALYZE CUSTOM REPLAY</div>
+            </div>
+        </div>
+        <div class = "row top-buffer-large">
+           <div class = "col-md-5 col-md-offset-6">
+                <h3 class = "white shadow">STATS LIKE NEVER BEFORE...</h3>
+                <p class = "white eightteen">Want to know which player has the highest goals per game in the league?<br>How about which team scores first the most?<br><br>Rocket League Tournament Stats can answer those and many more. We keep track a stats from first bloods to overtime goals. We then analyze those stats across all RLCS league play, playoff and LAN final games in order to break down where certain teams and players excel and struggle.<br><br> You can even upload your own replay using the button above, and we'll do an analysis on your single game.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p class = "white center eightteen">made with <i class="fa fa-heart red"></i> by josh arts | Rocket League is property of Psyonix, Inc.</p>
+    </footer>
+</body>
+
+</html>

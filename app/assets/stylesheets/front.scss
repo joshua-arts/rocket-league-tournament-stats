@@ -1,6 +1,21 @@
 @font-face {
   font-family: 'header';
-  src: url(/assets/two.woff);
+  src: url('/assets/two.woff');
+}
+
+.uploadbutton{
+    margin-left: auto;
+    margin-right: auto;
+	width: 370px;
+	height: 120px;
+	background-color: rgba(83, 28, 21, 0.9);
+    border-radius: 10px;
+    border: 2px solid black;
+    line-height: 120px;
+}
+
+.uploadbutton:hover{
+    background-color: rgba(130, 28, 21, 0.9);
 }
 
 /* PAGE SETUP */
@@ -8,7 +23,7 @@
 html,
 body {
   width: 100%;
-    background: url(../images/rlback.jpg) no-repeat center center fixed;
+    background: url(../images/bgsat.jpg) no-repeat center center fixed;
     -webkit-background-size: cover; /* For WebKit*/
     -moz-background-size: cover;    /* Mozilla*/
     -o-background-size: cover;      /* Opera*/
@@ -114,6 +129,10 @@ header {
     margin-top: 50px;
 }
 
+.top-buffer-xlarge{
+    margin-top: 90px;
+}
+
 .bot-buffer{
     margin-bottom: 25px;
 }
@@ -138,8 +157,10 @@ header {
     font-size: 18px;
 }
 
-.container{
-    background-color: rgba(50,50,50,0.7);
+.container-full{
+    margin: 0 auto;
+    width: 100%;
+    background-color: rgba(50,50,50,0.7)
 }
 
 /* GAME WIDGET */
@@ -217,7 +238,7 @@ header {
     background-color: dimgrey;
     border-radius: 15px;
     border: 0px solid #2F4F4F;
-    background: url(/Images/metal.jpg);
+    background: url(/Images/metal.jpg)
 }
 
 .info_pane {
@@ -333,4 +354,10 @@ footer{
 
 footer p{
     line-height: 70px;
+}
+
+/* FORMS */
+
+form {
+    width: 200px;
 }

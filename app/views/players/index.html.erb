@@ -16,6 +16,8 @@
    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
     
+    <%= stylesheet_link_tag "home" %>
+    
 </head>
 
 <script>   
@@ -69,11 +71,15 @@ $(document).ready(function(){
     
     // For conversion to option index.
     region_values = ["NA", "EU"];
-    stat_values = ["goals", "assists", "saves", "shots"]
+    stat_values = ["goals", "assists", "saves", "shots", "points"]
     
     // Set the dropdowns to appropriate search params.
     region.selectedIndex = (params.region) ? region_values.indexOf(params.region) + 1 : 0;
-    stat.selectedIndex = (params.sortby) ? stat_values.indexOf(params.sortby) + 1 : 0;
+    stat.selectedIndex = (params.sortby) ? stat_values.indexOf(params.sortby) : 0;
+    
+    // Colour the selected column.
+    columnIndex = stat.selectedIndex + 4; // Get the index & increment by 1 to match nth-child indexing
+    $('table tr td:nth-child(' + columnIndex + ')').css("color", "#F00"); // Set all the elements with that index in a tr red
     
     $('#search').on("click", function() {
         var region_query = ""
@@ -109,7 +115,8 @@ $(document).ready(function(){
    
    <nav id="nav">
         <ul>
-            <li><a href="./">HOME</a></li>
+            <li><a href="/">HOME</a></li>
+            <li><a href="/about">ABOUT</a></li>
             <li><a href="/teams">TEAMS</a></li>
             <li><a href="/players" >PLAYERS</a></li>
             <li><a href="#section3" >COMPARE</a></li>
@@ -139,12 +146,11 @@ $(document).ready(function(){
                 <div class="form-group top-buffer-small">
                     <label for="exampleSelect1" class = "white twenty shadow">SORT BY</label>
                     <select class="form-control" id="stat_select">
-                          <option value = "none">None</option>
                           <option value = "goals">Goals / Game</option>
                           <option value = "assists">Assists / Game</option>
                           <option value = "saves">Saves / Game</option>
                           <option value = "shots">Shots / Game</option>
-                          <option>Points / Game</option>
+                          <option value = "points">Points / Game</option>
                           <option>Shooting %</option>
                           <option>Save %</option>
                           <option>Winning Goals </option>

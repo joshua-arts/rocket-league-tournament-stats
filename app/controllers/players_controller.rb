@@ -8,10 +8,7 @@ class PlayersController < ApplicationController
         
         # Restrict to matches in certain stage.
         
-        # Case?
-        if(params[:sortby] == "goals")
-            @player = @player.by_gpg
-        elsif(params[:sortby] == "assists")
+        if(params[:sortby] == "assists")
             @player = @player.by_apg
         elsif(params[:sortby] == "saves")
             @player = @player.by_sapg
@@ -19,6 +16,8 @@ class PlayersController < ApplicationController
             @player = @player.by_shpg
         elsif(params[:sortby] == "points")
             @player = @player.by_ppg
+        else
+            @player = @player.by_gpg
         end
         
     end
