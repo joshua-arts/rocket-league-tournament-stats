@@ -59,7 +59,7 @@
                           <option>Match Wins</option>
                           <option>Game Wins</option>
                           <option>Shooting %</option>
-                          <option>Save %</option>
+                          <option>First Blood %</option>
                           <option>Goals / Game</option>
                           <option>Assists / Game</option>
                           <option>Saves / Game</option>
@@ -91,7 +91,7 @@
                     <th>Match W:L</th>
                     <th>Game W:L</th>
                     <th>Shooting %</th>
-                    <th>Save %</th>
+                    <th>First Blood %</th>
                     <th>G / G</th>
                     <th>A / G</th>
                     <th>Sa / G</th>
@@ -104,6 +104,7 @@
                         <% assists = t.player_stats.sum(:assists) %>
                         <% saves = t.player_stats.sum(:saves) %>
                         <% shots = t.player_stats.sum(:shots) %>
+                        <% fb = t.player_stats.sum(:fb) %>
                         <% games_played = t.player_stats.length / 3 %>
                         <tr>
                             <td><img src = <%= "Images/" + t.icon %> style = "height: 40px; width: 40px;"></td>
@@ -113,7 +114,7 @@
                             <td class = "twenty-two"><%= t.m_wins.to_s + " : " + ((Match.where(blue_team_id: t.id).length + Match.where(orange_team_id: t.id).length) - t.m_wins).to_s %></td>
                             <td class = "twenty-two"><%= t.g_wins.to_s + " : " + (games_played - t.g_wins).to_s %></td>
                             <td class = "twenty-two"><%= ((goals.to_f / shots.to_f).round(3) * 100).round(3) %></td>
-                            <td class = "twenty-two">00.0</td>
+                            <td class = "twenty-two"><%= ((fb.to_f / games_played.to_f).round(3) * 100).round(3) %></td>
                             <td class = "twenty-two"><%= (goals.to_f / games_played.to_f).round(2) %></td>
                             <td class = "twenty-two"><%= (assists.to_f / games_played.to_f).round(2) %></td>
                             <td class = "twenty-two"><%= (saves.to_f / games_played.to_f).round(2) %></td>
