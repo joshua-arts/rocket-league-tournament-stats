@@ -72,18 +72,21 @@ $(document).ready(function(){
     // For conversion to option index.
     region_values = ["NA", "EU"];
     stat_values = ["goals", "assists", "saves", "shots", "points"]
+    stage_values = ["lp", "lpw1", "lpw2"] //, "lpw3", "lpw4"]
     
     // Set the dropdowns to appropriate search params.
     region.selectedIndex = (params.region) ? region_values.indexOf(params.region) + 1 : 0;
     stat.selectedIndex = (params.sortby) ? stat_values.indexOf(params.sortby) : 0;
+    stage.selectedIndex = (params.stage) ? stage_values.indexOf(params.stage) + 1 : 0;
     
     // Colour the selected column.
-    columnIndex = stat.selectedIndex + 4; // Get the index & increment by 1 to match nth-child indexing
-    $('table tr td:nth-child(' + columnIndex + ')').css("color", "#F00"); // Set all the elements with that index in a tr red
+    columnIndex = stat.selectedIndex + 4;
+    $('table tr td:nth-child(' + columnIndex + ')').css("color", "#F00");
     
     $('#search').on("click", function() {
         var region_query = ""
         var stat_query = ""
+        var stage_query = ""
         
         if(region.selectedIndex != 0){
             region_query = "region=" + region.options[region.selectedIndex].value;
@@ -93,10 +96,14 @@ $(document).ready(function(){
             stat_query = "sortby=" + stat.options[stat.selectedIndex].value;
         }
         
-        var url = "/players"
-        var list = [region_query, stat_query];
+        if(stage.selectedIndex != 0){
+            stage_query = "stage=" + stage.options[stage.selectedIndex].value;
+        }
         
-        if(region_query != "" || stat_query != ""){
+        var url = "/players"
+        var list = [region_query, stat_query, stage_query];
+        
+        if(region_query != "" || stat_query != "" || stage_query != ""){
             url += "?";
             for(var i = 0; i < list.length; i++){
                 if(i > 0 && list[i] != ""){url += "&";}
@@ -163,8 +170,12 @@ $(document).ready(function(){
                 <div class="form-group top-buffer-small">
                     <label for="exampleSelect1" class = "white twenty shadow">STAGE</label>
                     <select class="form-control" id="stage_select">
-                          <option>All Season</option>
-                          <option>League Play</option>
+                          <option value = "none">All Season</option>
+                          <option value = "lp">All League Play</option>
+                          <option value = "lpw1">League Play W1</option>
+                          <option value = "lpw2">League Play W2</option>
+                          <option>League Play W3</option>
+                          <option>League Play W4</option>
                           <option>Playoffs</option>
                           <option>LAN Final</option>
                     </select>
@@ -196,15 +207,20 @@ $(document).ready(function(){
                 
                 <% @player.each do |p| %>
                 <% # Might be better to not initialize? %>
-                    <% if p.player_stats.length != 0 %>
-                        <% goals = p.player_stats.sum(:goals) %>
-                        <% assists = p.player_stats.sum(:assists) %>
-                        <% saves = p.player_stats.sum(:saves) %>
-                        <% shots = p.player_stats.sum(:shots) %>
-                        <% points = p.player_stats.sum(:points) %>
-                        <% gwg = p.player_stats.sum(:gwg) %>
-                        <% fb = p.player_stats.sum(:fb) %>
-                        <% games_played = p.player_stats.length %>
+                    <% if @selectedWeek > 0 %>
+                        <% playerStatPath = p.player_stats.where(week: @selectedWeek) %>
+                    <% else %>
+                        <% playerStatPath = p.player_stats %>
+                    <% end %>
+                    <% if playerStatPath.length != 0 %>
+                        <% goals = playerStatPath.sum(:goals) %>
+                        <% assists = playerStatPath.sum(:assists) %>
+                        <% saves = playerStatPath.sum(:saves) %>
+                        <% shots = playerStatPath.sum(:shots) %>
+                        <% points = playerStatPath.sum(:points) %>
+                        <% gwg = playerStatPath.sum(:gwg) %>
+                        <% fb = playerStatPath.sum(:fb) %>
+                        <% games_played = playerStatPath.length %>
                         <tr>
                             <td><img src = <%= "Images/" + Team.find(p.team_id).icon %> style = "height: 40px; width: 40px;"></td>
                             <td class = "twenty"><a href= <%= "/players/" + p.identifier %>> <%= p.name %></a></td>

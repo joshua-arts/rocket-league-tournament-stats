@@ -2,7 +2,7 @@
 # Player(id, name, region, team_id, first_name, last_name)
 # Match(id, name, stage, blue_team_id, orange_team_id, winner)
 # Game(id, name, match_id, map, blue_score, orange_score)
-# PlayerStat(id, match_id, team_id, player_id, game_id, goals, assists, saves, shots, points, fb, gwg)
+# PlayerStat(id, match_id, team_id, player_id, game_id, goals, assists, saves, shots, points, fb, gwg, stage, week)
 
 NA_TEAMS = {nrg: Team.create(name: 'NRG eSports', region: "NA", icon: "nrg.png",                   identifier: "nrg-esports", g_wins: 2, m_wins: 0),
     
@@ -140,6 +140,9 @@ EU_PLAYERS = {
 # g is an array of arrays.
 # ps is an array or arrays of arrays.
 
+$stage = ""
+$week = 0
+
 def recordMatch(m, g, ps)
     match = Match.create(name: m[0], stage: m[1], blue_team_id: m[2], orange_team_id: m[3], blue_score: m[4], orange_score: m[5], winner: m[6])
     
@@ -148,13 +151,15 @@ def recordMatch(m, g, ps)
     g.each_with_index{|g_obj, i|
         games[i] = Game.create(name: g_obj[0], match_id: match.id, map: g_obj[1], blue_score: g_obj[2], orange_score: g_obj[3])
         ps[i].each_with_index{|ps_obj, j|
-            playerstats[i][j] = PlayerStat.create(match_id: match.id, team_id: ps_obj[0], player_id: ps_obj[1], game_id: games[i].id, goals: ps_obj[2], assists: ps_obj[3], saves: ps_obj[4], shots: ps_obj[5], points: ps_obj[6], fb: ps_obj[7], gwg: ps_obj[8])
+            playerstats[i][j] = PlayerStat.create(match_id: match.id, team_id: ps_obj[0], player_id: ps_obj[1], game_id: games[i].id, goals: ps_obj[2], assists: ps_obj[3], saves: ps_obj[4], shots: ps_obj[5], points: ps_obj[6], fb: ps_obj[7], gwg: ps_obj[8], stage: $stage, week: $week)
         }
     }
     
 end
 
-# NA WEEK 1: 
+# NA WEEK 1:
+$stage = "lp"
+$week = 1
 
 recordMatch(
     
@@ -498,7 +503,44 @@ recordMatch(
         [NA_TEAMS[:nrg].id, NA_PLAYERS[:sadjunior].id, 0, 0, 4, 0, 280, 0, 0],
         [NA_TEAMS[:nrg].id, NA_PLAYERS[:fireburner].id, 0, 0, 0, 0, 100, 0, 0]]])
 
+# NA WEEK 2:
+$week = 2
 
+recordMatch(
+    
+    # MATCH DATA.
+    ["w2g1", "leageplay", NA_TEAMS[:gtwo].id, NA_TEAMS[:exodus].id, 0, 3, NA_TEAMS[:exodus].id],
+    
+    # GAME DATA.
+    [["g1", "", 1, 3],
+     ["g2", "", 2, 5],
+     ["g3", "", 0, 4]],
+    
+    # PLAYER STATS.
+    [
+        # GAME ONE.
+        [[NA_TEAMS[:exodus].id, NA_PLAYERS[:turtle].id, 2, 0, 2, 2, 310, 0, 1],
+        [NA_TEAMS[:exodus].id, NA_PLAYERS[:garretg].id, 1, 0, 2, 3, 200, 0, 0],
+        [NA_TEAMS[:exodus].id, NA_PLAYERS[:moses].id, 0, 1, 1, 2, 160, 0, 0],
+        [NA_TEAMS[:gtwo].id, NA_PLAYERS[:kronovi].id, 1, 0, 0, 3, 205, 1, 0],
+        [NA_TEAMS[:gtwo].id, NA_PLAYERS[:lachinio].id, 0, 0, 2, 1, 135, 0, 0],
+        [NA_TEAMS[:gtwo].id, NA_PLAYERS[:overzero].id, 0, 1, 1, 2, 170, 0, 0]],
+            
+        # GAME TWO.
+        [[NA_TEAMS[:exodus].id, NA_PLAYERS[:turtle].id, 1, 1, 1, 5, 225, 0, 0],
+        [NA_TEAMS[:exodus].id, NA_PLAYERS[:garretg].id, 4, 0, 1, 5, 460, 0, 1],
+        [NA_TEAMS[:exodus].id, NA_PLAYERS[:moses].id, 0, 1, 3, 1, 260, 0, 0],
+        [NA_TEAMS[:gtwo].id, NA_PLAYERS[:kronovi].id, 1, 1, 2, 3, 335, 0, 0],
+        [NA_TEAMS[:gtwo].id, NA_PLAYERS[:lachinio].id, 1, 0, 0, 4, 150, 1, 0],
+        [NA_TEAMS[:gtwo].id, NA_PLAYERS[:overzero].id, 0, 1, 0, 1, 155, 0, 0]],
+        
+        # GAME THREE.
+        [[NA_TEAMS[:exodus].id, NA_PLAYERS[:turtle].id, 1, 1, 1, 1, 215, 0, 0],
+        [NA_TEAMS[:exodus].id, NA_PLAYERS[:garretg].id, 3, 1, 1, 4, 425, 1, 1],
+        [NA_TEAMS[:exodus].id, NA_PLAYERS[:moses].id, 0, 1, 0, 2, 155, 0, 0],
+        [NA_TEAMS[:gtwo].id, NA_PLAYERS[:kronovi].id, 0, 0, 1, 3, 165, 0, 0],
+        [NA_TEAMS[:gtwo].id, NA_PLAYERS[:lachinio].id, 0, 0, 2, 0, 130, 0, 0],
+        [NA_TEAMS[:gtwo].id, NA_PLAYERS[:overzero].id, 0, 0, 0, 2, 140, 0, 0]]])
 
 
 
