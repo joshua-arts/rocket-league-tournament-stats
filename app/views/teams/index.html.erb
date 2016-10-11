@@ -20,6 +20,104 @@
     
 </head>
 
+<script>   
+    
+function getAllUrlParams(url) {
+    
+  var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
+  var obj = {};
+
+  if (queryString) {
+    queryString = queryString.split('#')[0];
+    var arr = queryString.split('&');
+      
+    for (var i=0; i<arr.length; i++) {
+      var a = arr[i].split('=');
+      var paramNum = undefined;
+      var paramName = a[0].replace(/\[\d*\]/, function(v) {
+        paramNum = v.slice(1,-1);
+        return '';
+      });
+
+      var paramValue = typeof(a[1])==='undefined' ? true : a[1];
+      if (obj[paramName]) {
+        if (typeof obj[paramName] === 'string') {
+          obj[paramName] = [obj[paramName]];
+        }
+        if (typeof paramNum === 'undefined') {
+          obj[paramName].push(paramValue);
+        }
+        else {
+          obj[paramName][paramNum] = paramValue;
+        }
+      }
+      else {
+        obj[paramName] = paramValue;
+      }
+    }
+  }
+
+  return obj;
+}
+    
+$(document).ready(function(){
+    
+    var region = document.getElementById("region_select");
+    var stat = document.getElementById("stat_select");
+    var stage = document.getElementById("stage_select");
+    
+    // Get parameters.
+    params = getAllUrlParams(window.location.href);
+    
+    // For conversion to option index.
+    region_values = ["NA", "EU"];
+    stat_values = ["matchwins", "gamewins", "shooting", "firstblood", "goals", "assists", "saves", "shots"]
+    stage_values = ["lp", "lpw1", "lpw2"] //, "lpw3", "lpw4"]
+    
+    // Set the dropdowns to appropriate search params.
+    region.selectedIndex = (params.region) ? region_values.indexOf(params.region) + 1 : 0;
+    stat.selectedIndex = (params.sortby) ? stat_values.indexOf(params.sortby) : 0;
+    stage.selectedIndex = (params.stage) ? stage_values.indexOf(params.stage) + 1 : 0;
+    
+    // Colour the selected column.
+    columnIndex = stat.selectedIndex + 4;
+    $('table tr td:nth-child(' + columnIndex + ')').css("color", "#F00");
+    
+    $('#search').on("click", function() {
+        var region_query = ""
+        var stat_query = ""
+        var stage_query = ""
+        
+        if(region.selectedIndex != 0){
+            region_query = "region=" + region.options[region.selectedIndex].value;
+        }
+        
+        if(stat.selectedIndex != 0){
+            stat_query = "sortby=" + stat.options[stat.selectedIndex].value;
+        }
+        
+        if(stage.selectedIndex != 0){
+            stage_query = "stage=" + stage.options[stage.selectedIndex].value;
+        }
+        
+        var url = "/teams"
+        var list = [region_query, stat_query, stage_query];
+        
+        if(region_query != "" || stat_query != "" || stage_query != ""){
+            url += "?";
+            for(var i = 0; i < list.length; i++){
+                if(i > 0 && list[i] != ""){url += "&";}
+                url += list[i];
+            }
+        }
+
+        window.location.href = url;
+    });
+    
+});
+    
+</script>
+
 <body>
    
    <nav id="nav">
@@ -44,40 +142,45 @@
             <div class = "col-md-2">
                 <div class="form-group top-buffer-small">
                     <label for="exampleSelect1" class = "white twenty shadow">REGION</label>
-                    <select class="form-control" id="exampleSelect1">
-                          <option>All</option>
-                          <option>NA</option>
-                          <option>EU</option>
+                    <select class="form-control" id="region_select">
+                          <option value = "none">All</option>
+                          <option value = "NA">NA</option>
+                          <option value = "EU">EU</option>
                     </select>
                 </div>
             </div>
             <div class = "col-md-2">
                 <div class="form-group top-buffer-small">
                     <label for="exampleSelect1" class = "white twenty shadow">SORT BY</label>
-                    <select class="form-control" id="exampleSelect1">
-                          <option>None</option>
-                          <option>Match Wins</option>
-                          <option>Game Wins</option>
-                          <option>Shooting %</option>
-                          <option>First Blood %</option>
-                          <option>Goals / Game</option>
-                          <option>Assists / Game</option>
-                          <option>Saves / Game</option>
-                          <option>Shots / Game</option>
+                    <select class="form-control" id="stat_select">
+                          <option value = "matchwins">Match Wins</option>
+                          <option value = "gamewins">Game Wins</option>
+                          <option value = "shooting">Shooting %</option>
+                          <option value = "firstblood">First Blood %</option>
+                          <option value = "goals">Goals / Game</option>
+                          <option value = "assists">Assists / Game</option>
+                          <option value = "saves">Saves / Game</option>
+                          <option value = "shots">Shots / Game</option>
                     </select>
                 </div>
             </div>
             <div class = "col-md-2">
                 <div class="form-group top-buffer-small">
-                    <label for="exampleSelect1" class = "white twenty shadow">ORDER</label>
-                    <select class="form-control" id="exampleSelect1">
-                          <option>Highest First</option>
-                          <option>Lowest First</option>
+                    <label for="exampleSelect1" class = "white twenty shadow">STAGE</label>
+                    <select class="form-control" id="stage_select">
+                          <option value = "none">All Season</option>
+                          <option value = "lp">All League Play</option>
+                          <option value = "lpw1">League Play W1</option>
+                          <option value = "lpw2">League Play W2</option>
+                          <option>League Play W3</option>
+                          <option>League Play W4</option>
+                          <option>Playoffs</option>
+                          <option>LAN Final</option>
                     </select>
                 </div>
             </div>
             <div class = "col-md-2">
-                <div class = "searchbutton center rounded white top-buffer"><i class="fa fa-search sr-icons"></i></div>
+                <div id = "search" class = "searchbutton center rounded white top-buffer"><i class="fa fa-search sr-icons"></i></div>
             </div>
         </div>
         
@@ -99,13 +202,18 @@
                 </tr>
                 
                 <% @team.each do |t| %>
+                    <% if @selectedWeek > 0 %>
+                        <% teamStatPath = t.player_stats.where(week: @selectedWeek) %>
+                    <% else %>
+                        <% teamStatPath = t.player_stats %>
+                    <% end %>
                     <% if t.player_stats.length != 0 %>
-                        <% goals = t.player_stats.sum(:goals) %>
-                        <% assists = t.player_stats.sum(:assists) %>
-                        <% saves = t.player_stats.sum(:saves) %>
-                        <% shots = t.player_stats.sum(:shots) %>
-                        <% fb = t.player_stats.sum(:fb) %>
-                        <% games_played = t.player_stats.length / 3 %>
+                        <% goals = teamStatPath.sum(:goals) %>
+                        <% assists = teamStatPath.sum(:assists) %>
+                        <% saves = teamStatPath.sum(:saves) %>
+                        <% shots = teamStatPath.sum(:shots) %>
+                        <% fb = teamStatPath.sum(:fb) %>
+                        <% games_played = teamStatPath.length / 3 %>
                         <tr>
                             <td><img src = <%= "Images/" + t.icon %> style = "height: 40px; width: 40px;"></td>
                             <td class = "twenty"><a href= <%= "/teams/" + t.identifier %>> <%= t.name %></a></td>

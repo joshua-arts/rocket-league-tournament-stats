@@ -18,19 +18,22 @@ class PlayersController < ApplicationController
         end
         
         if(params[:sortby] == "assists")
-            #@player = @player.joins(:player_stats).by_apg
             @player = @player.by_apg
         elsif(params[:sortby] == "saves")
-            #@player = @player.joins(:player_stats).by_sapg
             @player = @player.by_sapg
         elsif(params[:sortby] == "shots")
-            #@player = @player.joins(:player_stats).by_shpg
             @player = @player.by_shpg
         elsif(params[:sortby] == "points")
-            #@player = @player.joins(:player_stats).by_ppg
             @player = @player.by_ppg
+        elsif(params[:sortby] == "shooting")
+            @player = @player.by_shooting
+        elsif(params[:sortby] == "gwg")
+            @player = @player.by_gwg
+        elsif(params[:sortby] == "fb")
+            @player = @player.by_fb
+        elsif(params[:sortby] == "gp")
+            @player = @player.by_gp
         else
-            #@player = @player.joins(:player_stats).by_gpg
             @player = @player.by_gpg
         end
         

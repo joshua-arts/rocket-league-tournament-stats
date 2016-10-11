@@ -71,7 +71,7 @@ $(document).ready(function(){
     
     // For conversion to option index.
     region_values = ["NA", "EU"];
-    stat_values = ["goals", "assists", "saves", "shots", "points"]
+    stat_values = ["goals", "assists", "saves", "shots", "points","shooting","savepercent","gwg","fb","gp"]
     stage_values = ["lp", "lpw1", "lpw2"] //, "lpw3", "lpw4"]
     
     // Set the dropdowns to appropriate search params.
@@ -158,11 +158,11 @@ $(document).ready(function(){
                           <option value = "saves">Saves / Game</option>
                           <option value = "shots">Shots / Game</option>
                           <option value = "points">Points / Game</option>
-                          <option>Shooting %</option>
+                          <option value = "shooting">Shooting %</option>
                           <option>Save %</option>
-                          <option>Winning Goals </option>
-                          <option>First Bloods</option>
-                          <option>Games Played</option>
+                          <option value = "gwg">Winning Goals </option>
+                          <option value = "fb">First Bloods</option>
+                          <option value = "gp">Games Played</option>
                     </select>
                 </div>
             </div>
