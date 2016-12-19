@@ -1,25 +1,7 @@
-# README
+# Rocket League Tournament Stats
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project is on hold until further notice.
 
-Things you may want to cover:
+It was really meant to be a learning experience, and I learned a whole bunch!
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# rocket-league-tournament-stats
+I'll definitely circle back to the idea once I have more free time to work on it, and potentially find new ways to analyze match data.
